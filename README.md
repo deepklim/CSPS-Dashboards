@@ -1,2 +1,2 @@
-# CSPS-Dashboards
+# CSPS-Legacy-Dashboards
 Monthly dashboard generators
