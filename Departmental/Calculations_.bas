@@ -117,7 +117,7 @@ Sub top_10(loc As Range, business_type As String)
     'Formulæ
     'THIS_YEAR
     Dim myQuery As String
-    myQuery = "SELECT TOP 10 [Course Title], COUNT([Course Title]) FROM [THIS_YEAR$] WHERE [Reg Status] = 'Confirmed' AND [Business Type] = '" & business_type & "' AND [Course Code] NOT IN ('G313','G413','G414','G415','E631','E636','E632','E637','E634','E635','E800','E801') GROUP BY [Course Title] ORDER BY 2 DESC"
+    myQuery = "SELECT TOP 10 [Course Code], COUNT([Course Code]) FROM [THIS_YEAR$] WHERE [Reg Status] = 'Confirmed' AND [Business Type] = '" & business_type & "' AND [Course Code] NOT IN ('G313','G413','G414','G415','E631','E636','E632','E637','E634','E635','E800','E801') GROUP BY [Course Code] ORDER BY 2 DESC"
     Call SQL(query:=myQuery, result_location:=loc.Offset(1, 0), header:=False, as_array:=False)
     'Clear cells below in case of overflow
     loc.Offset(11, 0).Resize(10, 2).ClearContents
@@ -129,27 +129,13 @@ Sub top_10(loc As Range, business_type As String)
             loc.Offset(i, 1) = "0"
         End If
     Next
-    'Move course code from end of title to beginning via RegExp
-    Dim re As Object: Set re = CreateObject("VBScript.RegExp")
-    Dim rePattern As String: rePattern = "[(\[]{1}[A-Z]{1}\d{3}[)\]]{1}"
-    With re
-        re.IgnoreCase = True
-        re.Global = True
-        re.MultiLine = True
-        re.Pattern = rePattern
-    End With
-    Dim foundCode As Object
+    'Add English titles
     For i = 1 To 10
-        Set foundCode = re.Execute(loc.Offset(i, 0))
-        If foundCode.Count Then
-            loc.Offset(i, 0) = re.Replace(loc.Offset(i, 0), "")
-            loc.Offset(i, 0) = Trim(foundCode(0) & " " & loc.Offset(i, 0))
-        End If
+        loc.Offset(i, -2).Formula = "=IFNA(VLOOKUP(""" & loc.Offset(i, 0) & """,'Course Names'!$A:$C,2,0),""" & loc.Offset(i, 0) & """)"
     Next
-    Set re = Nothing
-    Set foundCode = Nothing
     'Add French titles
     For i = 1 To 10
-        loc.Offset(i + 10, 0).Formula = "=IFNA(VLOOKUP(""" & loc.Offset(i, 0) & """,'Course Names'!$A:$B,2,0),""" & loc.Offset(i, 0) & """)"
+        loc.Offset(i, -1).Formula = "=IFNA(VLOOKUP(""" & loc.Offset(i, 0) & """,'Course Names'!$A:$C,3,0),""" & loc.Offset(i, 0) & """)"
     Next
 End Sub
+

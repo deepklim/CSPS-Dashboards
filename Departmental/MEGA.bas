@@ -5,13 +5,17 @@ Option Explicit
 'Runtime July 03 2018: 389 sec
 'Runtime July 06 2018: 542 sec
 'Runtime August 01 2018: 434 sec
+'Runtime September 04 2018: 466 sec
+'Runtime October 01 2018: 525 sec
+'Runtime November 01 2018: 450 sec
+'Runtime November 30 2018: ??? sec
 
 Sub MEGA()
     Application.ScreenUpdating = False
     Dim t As Double: t = Timer()
     
     Dim i As Long: i = 1
-    Do While i < 102
+    Do While i < 104
         Call Main_MEGA(ThisWorkbook.Sheets("Department Names").Range("A1").Offset(i, 0))
         i = i + 1
     Loop
@@ -42,8 +46,8 @@ Sub Main_MEGA(my_selection As String)
     Call Chart_D(WS, top_left_corner:=WS.Range("F19"), x_labels:=Array(""), y_labels:=Array(""), title:="D: No-Show Rate")
     Call Chart_E(WS, top_left_corner:=WS.Range("F26"), x_labels:=Array(""), y_labels:=Array(""), title:="E: Unique Learners per Year")
     Call Chart_F(WS, top_left_corner:=WS.Range("K19"), x_labels:=Array(""), y_labels:=Array(""), title:="F: Training Hours by Business Type")
-    Call Chart_G(WS, top_left_corner:=WS.Range("A34"), x_labels:=Array(""), y_labels:=Array(""), title:="G: Top 10 Instructor-Led Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
-    Call Chart_H(WS, top_left_corner:=WS.Range("I34"), x_labels:=Array(""), y_labels:=Array(""), title:="H: Top 10 Online Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
+    Call Chart_G(WS, top_left_corner:=WS.Range("A34"), x_labels:=WS.Range("U34:U43"), y_labels:=Array(""), title:="G: Top 10 Instructor-Led Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
+    Call Chart_H(WS, top_left_corner:=WS.Range("I34"), x_labels:=WS.Range("Y34:Y43"), y_labels:=Array(""), title:="H: Top 10 Online Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
     
     'Create French charts
     Dim month_list_fr As Variant: month_list_fr = Array("Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre", "Janvier", "Février", "Mars")
@@ -55,8 +59,8 @@ Sub Main_MEGA(my_selection As String)
     Call Chart_D(WS, top_left_corner:=WS.Range("F73"), x_labels:=Array(""), y_labels:=Array(""), title:="D : Taux d'absence")
     Call Chart_E(WS, top_left_corner:=WS.Range("F80"), x_labels:=Array(""), y_labels:=Array(""), title:="E : Apprenants uniques par année")
     Call Chart_F(WS, top_left_corner:=WS.Range("K73"), x_labels:=Array(""), y_labels:=business_type_list_fr, title:="F : Heures de formation par type de livraison")
-    Call Chart_G(WS, top_left_corner:=WS.Range("A88"), x_labels:=WS.Range("W44:W53"), y_labels:=Array(""), title:="G : Top 10 des cours dirigés par un instructeur, " & THIS_YEAR & " (excluant les programmes de leadership)")
-    Call Chart_H(WS, top_left_corner:=WS.Range("I88"), x_labels:=WS.Range("AA44:AA53"), y_labels:=Array(""), title:="H : Top 10 des cours en ligne, " & THIS_YEAR & " (excluant les programmes de leadership)")
+    Call Chart_G(WS, top_left_corner:=WS.Range("A88"), x_labels:=WS.Range("V34:V43"), y_labels:=Array(""), title:="G : Top 10 des cours dirigés par un instructeur, " & THIS_YEAR & " (excluant les programmes de leadership)")
+    Call Chart_H(WS, top_left_corner:=WS.Range("I88"), x_labels:=WS.Range("Z34:Z43"), y_labels:=Array(""), title:="H : Top 10 des cours en ligne, " & THIS_YEAR & " (excluant les programmes de leadership)")
     
     'Save As PDF
     Call PDF(WS, ThisWorkbook.path, dept_code)

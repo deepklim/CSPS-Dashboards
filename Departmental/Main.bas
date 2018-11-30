@@ -1,12 +1,13 @@
 Attribute VB_Name = "Main"
 Option Explicit
 
-'Future proof: Update following four contstants + two tabs: "LSR_LAST_YEAR", "LSR_THIS_YEAR" + make Billing Dept Code changes listed in "Methodology" tab
+'Future proof: Update the two contstants below
+'- "LSR_LAST_YEAR", "LSR_THIS_YEAR" tabs
+'- make Billing Dept Code changes listed in "Methodology" tab
+'- change dates on "See Appendix..."
+
 Public Const LAST_YEAR As String = "2017-18"
 Public Const THIS_YEAR As String = "2018-19"
-'Q1/T1, Q2/T2, etc. but empty string if in between quarters as month names are too long
-Public Const THIS_QUAR As String = ""
-Public Const THIS_QUAR_FR As String = ""
 
 Sub Main()
     Application.ScreenUpdating = False
@@ -30,8 +31,8 @@ Sub Main()
     Call Chart_D(WS, top_left_corner:=WS.Range("F19"), x_labels:=Array(""), y_labels:=Array(""), title:="D: No-Show Rate")
     Call Chart_E(WS, top_left_corner:=WS.Range("F26"), x_labels:=Array(""), y_labels:=Array(""), title:="E: Unique Learners per Year")
     Call Chart_F(WS, top_left_corner:=WS.Range("K19"), x_labels:=Array(""), y_labels:=Array(""), title:="F: Training Hours by Business Type")
-    Call Chart_G(WS, top_left_corner:=WS.Range("A34"), x_labels:=Array(""), y_labels:=Array(""), title:="G: Top 10 Instructor-Led Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
-    Call Chart_H(WS, top_left_corner:=WS.Range("I34"), x_labels:=Array(""), y_labels:=Array(""), title:="H: Top 10 Online Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
+    Call Chart_G(WS, top_left_corner:=WS.Range("A34"), x_labels:=WS.Range("U34:U43"), y_labels:=Array(""), title:="G: Top 10 Instructor-Led Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
+    Call Chart_H(WS, top_left_corner:=WS.Range("I34"), x_labels:=WS.Range("Y34:Y43"), y_labels:=Array(""), title:="H: Top 10 Online Courses, " & THIS_YEAR & " (Excluding Leadership Programs)")
     
     'Create French charts
     Dim month_list_fr As Variant: month_list_fr = Array("Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre", "Janvier", "Février", "Mars")
@@ -43,8 +44,8 @@ Sub Main()
     Call Chart_D(WS, top_left_corner:=WS.Range("F73"), x_labels:=Array(""), y_labels:=Array(""), title:="D : Taux d'absence")
     Call Chart_E(WS, top_left_corner:=WS.Range("F80"), x_labels:=Array(""), y_labels:=Array(""), title:="E : Apprenants uniques par année")
     Call Chart_F(WS, top_left_corner:=WS.Range("K73"), x_labels:=Array(""), y_labels:=business_type_list_fr, title:="F : Heures de formation par type de livraison")
-    Call Chart_G(WS, top_left_corner:=WS.Range("A88"), x_labels:=WS.Range("W44:W53"), y_labels:=Array(""), title:="G : Top 10 des cours dirigés par un instructeur, " & THIS_YEAR & " (excluant les programmes de leadership)")
-    Call Chart_H(WS, top_left_corner:=WS.Range("I88"), x_labels:=WS.Range("AA44:AA53"), y_labels:=Array(""), title:="H : Top 10 des cours en ligne, " & THIS_YEAR & " (excluant les programmes de leadership)")
+    Call Chart_G(WS, top_left_corner:=WS.Range("A88"), x_labels:=WS.Range("V34:V43"), y_labels:=Array(""), title:="G : Top 10 des cours dirigés par un instructeur, " & THIS_YEAR & " (excluant les programmes de leadership)")
+    Call Chart_H(WS, top_left_corner:=WS.Range("I88"), x_labels:=WS.Range("Z34:Z43"), y_labels:=Array(""), title:="H : Top 10 des cours en ligne, " & THIS_YEAR & " (excluant les programmes de leadership)")
     
     'Save As PDF
     If ThisWorkbook.Sheets("Instructions").OLEObjects("checkbox_pdf").Object.Value Then _
@@ -60,15 +61,15 @@ End Sub
 Sub Pre_Format(WS As Worksheet, dept_name As String)
     WS.Cells.ClearContents
     'Labels
-    WS.Range("A2") = "Curriculum Usage Update, " & THIS_QUAR & " " & THIS_YEAR
-    WS.Range("A56") = "Mise à jour sur la participation au cursus, " & THIS_QUAR_FR & " " & THIS_YEAR
+    WS.Range("A2") = "Curriculum Usage Update, " & THIS_YEAR
+    WS.Range("A56") = "Mise à jour sur la participation au cursus, " & THIS_YEAR
     WS.Range("P2") = dept_name
     WS.Range("P56") = Application.VLookup(dept_name, ThisWorkbook.Sheets("Department Names").Columns("D:E"), 2, 0)
-    WS.Range("N50") = "See Appendix 1 for Methodology"
+    WS.Range("N50") = "Data from April 1 through October 31 - See Appendix 1 for Methodology"
     WS.Range("N51") = "Report generated on " & Date
     WS.Range("N52") = "Page 1/3"
     WS.Range("G51") = "Prepared by Curriculum Management"
-    WS.Range("N104") = "Consulter l'Annexe 1 pour la méthodologie"
+    WS.Range("N104") = "Données du 1er avril au 31 octobre - Consulter l'Annexe 1 pour la méthodologie"
     WS.Range("N105") = "Rapport généré le " & Date
     WS.Range("N106") = "Page 2/3"
     WS.Range("G105") = "Préparé par Gestion du Curriculum"

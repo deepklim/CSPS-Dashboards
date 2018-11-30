@@ -50,9 +50,8 @@ Sub Chart_G(WS As Worksheet, top_left_corner As Range, x_labels As Variant, y_la
     cht.Chart.SeriesCollection(1).Format.Fill.ForeColor.RGB = RGB(0, 82, 97)
     
     'Allow custom X- and Y-axis labels for French charts
-    If Not x_labels(0) = "" Then
-        cht.Chart.FullSeriesCollection(1).XValues = x_labels
-    End If
+    cht.Chart.FullSeriesCollection(1).XValues = x_labels
+    
     If Not y_labels(0) = "" Then
         Dim i As Long, my_series As Series
         For Each my_series In cht.Chart.SeriesCollection
