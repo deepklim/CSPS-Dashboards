@@ -79,9 +79,9 @@ Sub level_1_results(loc As Range, course_code As String)
     'Overall Satisfaction
     loc.Offset(1, 2).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(LAST_YEAR, 4) & "'!$V:$V,'L1SR" & Left(LAST_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(LAST_YEAR, 4) & "'!$U:$U,""Overall Satisfaction""),2),""N/A"")"
     loc.Offset(1, 3).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(THIS_YEAR, 4) & "'!$V:$V,'L1SR" & Left(THIS_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(THIS_YEAR, 4) & "'!$U:$U,""Overall Satisfaction""),2),""N/A"")"
-    'Met My Learning Needs
-    loc.Offset(2, 2).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(LAST_YEAR, 4) & "'!$V:$V,'L1SR" & Left(LAST_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(LAST_YEAR, 4) & "'!$U:$U,""Met my learning needs""),2),""N/A"")"
-    loc.Offset(2, 3).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(THIS_YEAR, 4) & "'!$V:$V,'L1SR" & Left(THIS_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(THIS_YEAR, 4) & "'!$U:$U,""Met my learning needs""),2),""N/A"")"
+    'Learning Needs Met
+    loc.Offset(2, 2).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(LAST_YEAR, 4) & "'!$V:$V,'L1SR" & Left(LAST_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(LAST_YEAR, 4) & "'!$U:$U,""Learning Needs Met""),2),""N/A"")"
+    loc.Offset(2, 3).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(THIS_YEAR, 4) & "'!$V:$V,'L1SR" & Left(THIS_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(THIS_YEAR, 4) & "'!$U:$U,""Learning Needs Met""),2),""N/A"")"
     'Knowledge Before
     loc.Offset(3, 2).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(LAST_YEAR, 4) & "'!$V:$V,'L1SR" & Left(LAST_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(LAST_YEAR, 4) & "'!$U:$U,""Knowledge before""),2),""N/A"")"
     loc.Offset(3, 3).Formula = "=IFERROR(ROUND(AVERAGEIFS('L1SR" & Left(THIS_YEAR, 4) & "'!$V:$V,'L1SR" & Left(THIS_YEAR, 4) & "'!$B:$B,""" & course_code & """,'L1SR" & Left(THIS_YEAR, 4) & "'!$U:$U,""Knowledge before""),2),""N/A"")"
